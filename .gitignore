@@ -1,0 +1,24 @@
+# Compiled objects and libraries
+src/*.o
+*.a
+
+# Executables
+*.exe
+task_manager
+test_main
+
+# MSVC artifacts
+*.ilk
+*.obj
+*.pdb
+
+# CMake / build directories
+build/
+tests/build/
+
+# VS Code
+.vscode/
+
+lectures/
+
+.claude/
