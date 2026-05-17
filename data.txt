@@ -1,0 +1,14 @@
+PROJECT|Work|Work related tasks
+TASK|Basic|Code review PR42|Review Ivan's authentication changes|High|Done|2026-05-01|Approved
+TASK|Bug|Fix null pointer in dashboard|Dashboard throws null pointer on first load|High|To Do|2026-05-20||Load dashboard with empty project list
+TASK|Bug|Fix login crash|App crashes when wrong password entered 3 times|High|In Progress|2026-05-25|Reported by QA|Enter wrong password 3 times then click forgot password
+TASK|Basic|Update README|Document new task types and file format|Low|In Progress|2026-06-15|
+TASK|Feature|Add dark mode|Implement dark/light theme toggle in settings|Medium|To Do|2026-07-01|Design mockup approved|12
+TASK|Feature|Export to PDF|Allow users to export task list as PDF|Medium|To Do|2026-08-15||8
+TASK|Feature|New feature|Add export button|Medium|To Do|2026-10-01||6
+TASK|Bug|New bug|Something is broken|High|Done|2026-11-01||Click the red button
+PROJECT|Personal|Personal side project tasks
+TASK|Feature|Add calendar view|Show tasks on a monthly calendar|High|To Do|2026-06-30||20
+TASK|Bug|Fix date validation|Dates before 2000 are accepted incorrectly|Medium|To Do|2026-05-28||Enter year 1999 in deadline field
+TASK|Basic|Buy domain|Register domain for the project website|Low|Done|2026-05-10|Got .dev domain
+TASK|Basic|Write blog post|Describe the OOP architecture of the project|Medium|To Do|2026-07-20|
