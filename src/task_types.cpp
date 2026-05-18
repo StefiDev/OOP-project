@@ -12,6 +12,8 @@ BasicTask::BasicTask(const BasicTask& other) : Task(other) {}
 
 string BasicTask::getType() const { return "Basic"; }
 
+// clone() използва copy constructor — създава точно копие на обекта.
+// Връща Task* (базов тип), но реално връща BasicTask обект — полиморфизъм.
 Task* BasicTask::clone() const { return new BasicTask(*this); }
 
 // --- BugTask ---
@@ -29,6 +31,8 @@ void BugTask::setStepsToReproduce(const string& steps) { stepsToReproduce = step
 
 string BugTask::toString() const {
     ostringstream oss;
+    // Викаме базовата версия Task::toString() и добавяме само специфичното за BugTask.
+    // Това е добро използване на наследяването — не копираме код.
     oss << Task::toString();
     oss << "Steps to reproduce: " << stepsToReproduce << "\n";
     return oss.str();
