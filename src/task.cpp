@@ -8,6 +8,7 @@ Task::Task(const string& title, const string& description, Priority priority, co
     this->title = title;
     this->description = description;
     this->priority = priority;
+    // Викаме setDeadline вместо директно присвояване, за да мине валидацията на формата.
     setDeadline(deadline);
     this->status = Status::TODO;
     this->note = "";
@@ -19,6 +20,8 @@ Task::Task(const Task& other)
 
 string Task::getTitle() const { return this->title; }
 void Task::setTitle(string t) {
+    // ЕНКАПСУЛАЦИЯ: валидацията е вътре в setter-а — извикващият код не може да постави
+    // невалидна стойност дори случайно. Данните са защитени от некоректно състояние.
     if (t.empty()) throw invalid_argument("Can't be empty");
     this->title = t;
 }
@@ -65,6 +68,9 @@ bool Task::isOverdue() const {
 
 string Task::toString() const {
     ostringstream oss;
+    // ПОЛИМОРФИЗЪМ: getType() тук се вика виртуално — ако обектът е BugTask,
+    // ще се изпълни BugTask::getType(), не Task::getType(). Компилаторът решава
+    // коя версия да извика по време на изпълнение (runtime), не по време на компилация.
     oss << "[" << getType() << "] " << this->title << "\n";
     oss << "Desc: " << this->description << "\n";
     oss << "Priority: " << priorityToString(this->priority) << "\n";
