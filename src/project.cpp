@@ -7,12 +7,16 @@ using namespace std;
 Project::Project(const string& name, const string& description) : name(name), description(description) {}
 
 Project::Project(const Project& other) : name(other.name), description(other.description) {
+    // ПОЛИМОРФИЗЪМ: clone() се вика виртуално — всяка задача се копира като
+    // правилния си подтип. Ако не ползвахме clone(), щяхме да загубим
+    // специфичните данни (stepsToReproduce, estimatedHours) при копиране.
     for (size_t i = 0; i < other.tasks.size(); i++) {
         tasks.push_back(other.tasks[i]->clone());
     }
 }
 
 Project& Project::operator=(const Project& other) {
+    // Self-assignment guard: ако p = p, не трием собствените си задачи.
     if (this == &other) return *this;
     for (size_t i = 0; i < tasks.size(); i++) delete tasks[i];
     tasks.clear();
@@ -72,6 +76,8 @@ vector<Task*> Project::getTasksByPriority(Priority p) const {
 void Project::sortTasksByDeadline() {
     for (size_t i = 0; i < this->tasks.size(); i++) {
         for (size_t j = i + 1; j < this->tasks.size(); j++) {
+            // *tasks[j] < *tasks[i] вика Task::operator< — дереференцираме указателите,
+            // за да сравним обектите, не адресите им в паметта.
             if (*this->tasks[j] < *this->tasks[i]) swap(this->tasks[i], this->tasks[j]);
         }
     }
