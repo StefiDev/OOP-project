@@ -7,15 +7,27 @@
 
 using namespace std;
 
+// Project управлява колекция от задачи. Той не знае дали задачата е BasicTask,
+// BugTask или FeatureTask — работи с тях само чрез базовия тип Task*.
+// Това е класическо приложение на полиморфизъм и абстракция.
+
 class Project {
 private:
+    // ЕНКАПСУЛАЦИЯ: name, description и tasks са private — никой отвън не може
+    // директно да добавя задачи или да менте списъка. Единствено методите на класа
+    // (addTask, removeTask) контролират достъпа.
     string name;
     string description;
+    // ПОЛИМОРФИЗЪМ: пазим Task* указатели, не конкретни типове.
+    // Така Project работи с всеки тип задача сега и в бъдеще.
     vector<Task*> tasks;
 public:
     Project(const string& name, const string& description);
+    // Copy constructor и operator= са нужни защото пазим raw указатели.
+    // Без тях би се копирал само указателят — два обекта биха сочели към същата памет.
     Project(const Project& other);
     Project& operator=(const Project& other);
+    // Деструкторът трие всяка задача от heap паметта — предотвратява memory leak.
     ~Project();
 
     string getName() const;
