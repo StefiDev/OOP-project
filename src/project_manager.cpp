@@ -176,6 +176,11 @@ void ProjectManager::saveToFile() const {
             file << "TASK|" << t->getType() << "|" << t->getTitle() << "|" << t->getDescription() << "|"
                  << priorityToString(t->getPriority()) << "|" << statusToString(t->getStatus()) << "|"
                  << t->getDeadline() << "|" << t->getNote();
+            // dynamic_cast проверява типа на обекта по време на изпълнение.
+            // Нужен е тук, защото saveToFile трябва да запише специфичните данни
+            // (stepsToReproduce, estimatedHours) — те не съществуват в базовия Task.
+            // Ако не бяхме ползвали полиморфизъм, щяхме да имаме отделни вектори
+            // за всеки тип задача — много по-сложно.
             if (BugTask* bt = dynamic_cast<BugTask*>(t)) {
                 file << "|" << bt->getStepsToReproduce();
             } else if (FeatureTask* ft = dynamic_cast<FeatureTask*>(t)) {
